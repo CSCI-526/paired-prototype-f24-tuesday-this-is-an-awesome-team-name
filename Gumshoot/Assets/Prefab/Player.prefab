@@ -166,7 +166,9 @@ MonoBehaviour:
   gumExtended: 0
   latched: 0
   latchedNormal: {x: 0, y: 1}
+  PulledObject: {fileID: 0}
   jumpForce: 100
+  throwForce: 800
   maxDist: 10
   extractSpeed: 28
   retractSpeed: 28

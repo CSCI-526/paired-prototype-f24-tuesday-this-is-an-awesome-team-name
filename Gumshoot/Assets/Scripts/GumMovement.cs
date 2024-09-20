@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Pool;
 using static UnityEngine.RuleTile.TilingRuleOutput;
 
 public class HookMovement : MonoBehaviour
@@ -19,8 +20,6 @@ public class HookMovement : MonoBehaviour
     private float dist = 0.0f; // Distance from starting point
     private GameObject StringGroupInstance;
 
-    private GameObject PulledObject;
-
     // String drawing
     private readonly Stack<GameObject> stringList = new(); // First index is closest to hook
 
@@ -35,14 +34,16 @@ public class HookMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        // Extend
         if (isExtending)
         {
-            // Extend
+            // Extend the gum string
             if (dist < owner.maxDist)
             {
                 dist += Time.deltaTime * owner.extractSpeed;
                 transform.localPosition += (owner.extractSpeed * Time.deltaTime * direction);
             }
+            // If the gum string has reached max length, start retracting
             else
             {
                 dist -= playerRadius;
@@ -50,27 +51,31 @@ public class HookMovement : MonoBehaviour
                 isRetracting = true;
             }
         }
+        // Retract
         else if (isRetracting)
         {
-            // Retract
+            // Moves the gum string toward the player
             if (dist > 0f)
             {
                 dist -= Time.deltaTime * owner.retractSpeed;
                 transform.localPosition -= (owner.retractSpeed * Time.deltaTime * direction);
             }
+            // If the gum string has reached the player, stop all gum movement
             else
             {
                 isRetracting = false;
             }
         }
+        // Pull the player
         else if (isPullingPlayer)
         {
-            // Pull the player
+            // Pull the player toward the gum
             if (dist > 0f)
             {
                 dist -= Time.deltaTime * owner.retractSpeed;
                 owner.transform.localPosition += (owner.retractSpeed * Time.deltaTime * direction);
             }
+            // If the player has reached the gum string, stop all gum movement
             else
             {
                 owner.latched = true;
@@ -79,18 +84,26 @@ public class HookMovement : MonoBehaviour
         }
         else
         {
-            transform.DetachChildren();
+            // Detach the pulled object from the gum and attach it to the player instead
+            if (owner.PulledObject != null)
+            {
+                transform.DetachChildren();
+                owner.PulledObject.GetComponent<FixedJoint2D>().enabled = true;
+                owner.PulledObject.GetComponent<FixedJoint2D>().connectedBody = owner.GetComponent<Rigidbody2D>();
+            }
             owner.gumExtended = false;
             Destroy(gameObject);
             Destroy(StringGroupInstance);
             return;
         }
 
-        DrawChain();
+        DrawString();
     }
 
-    private void DrawChain()
+    // Handles drawing the gum string
+    private void DrawString()
     {
+        // If the length of the string has exceeded the combined length of the string sprites, spawn another string sprite
         if (dist > stringList.Count * stringSpriteLength * 7.5f)
         {
             // Add chains
@@ -98,6 +111,7 @@ public class HookMovement : MonoBehaviour
             StringInstance.transform.localPosition = new Vector3(0f, (stringSpriteLength / 2f + stringSpriteLength * stringList.Count), 0f);
             stringList.Push(StringInstance);
         }
+        // Destroy string sprites as it retracts
         else if (dist + playerRadius <= (stringList.Count - 1) * stringSpriteLength * 7.5f)
         {
             // Remove chains
@@ -107,11 +121,10 @@ public class HookMovement : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
+        // Only accept gum collisions when extending
         if (!isPullingPlayer && !isRetracting)
         {
-            // Debug
-            Debug.Log(collision.gameObject.name);
-
+            // Handles pulling the player toward a surface
             if (collision.collider.gameObject.CompareTag("Surface"))
             {
                 // Pull the player toward the object
@@ -132,6 +145,7 @@ public class HookMovement : MonoBehaviour
                 // Recalculate distance
                 dist = Vector3.Distance(owner.transform.position, transform.position);
             }
+            // Handles pulling an object toward the player
             else if (collision.gameObject.CompareTag("Pullable"))
             {
                 // Pull the object toward the player
@@ -139,8 +153,10 @@ public class HookMovement : MonoBehaviour
                 isRetracting = true;
                 isPullingPlayer = false;
 
+                // Attach the object onto the gum
                 collision.gameObject.transform.parent = transform;
-                PulledObject = collision.gameObject;
+                owner.PulledObject = collision.gameObject;
+                owner.PulledObject.GetComponent<Rigidbody2D>().gravityScale = 0f;
             }
         }
     }
