@@ -19,6 +19,8 @@ public class HookMovement : MonoBehaviour
     private float dist = 0.0f; // Distance from starting point
     private GameObject StringGroupInstance;
 
+    private GameObject PulledObject;
+
     // String drawing
     private readonly Stack<GameObject> stringList = new(); // First index is closest to hook
 
@@ -77,6 +79,7 @@ public class HookMovement : MonoBehaviour
         }
         else
         {
+            transform.DetachChildren();
             owner.gumExtended = false;
             Destroy(gameObject);
             Destroy(StringGroupInstance);
@@ -104,12 +107,12 @@ public class HookMovement : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (!isPullingPlayer)
+        if (!isPullingPlayer && !isRetracting)
         {
             // Debug
             Debug.Log(collision.gameObject.name);
 
-            if (collision.collider.gameObject.CompareTag("Surface") && !isRetracting)
+            if (collision.collider.gameObject.CompareTag("Surface"))
             {
                 // Pull the player toward the object
                 isExtending = false;
@@ -135,6 +138,9 @@ public class HookMovement : MonoBehaviour
                 isExtending = false;
                 isRetracting = true;
                 isPullingPlayer = false;
+
+                collision.gameObject.transform.parent = transform;
+                PulledObject = collision.gameObject;
             }
         }
     }
