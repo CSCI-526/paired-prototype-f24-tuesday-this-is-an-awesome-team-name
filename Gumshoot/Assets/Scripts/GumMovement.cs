@@ -19,6 +19,7 @@ public class HookMovement : MonoBehaviour
     private bool isPullingPlayer = false;
     private float dist = 0.0f; // Distance from starting point
     private GameObject StringGroupInstance;
+    private bool isContact = false;
 
     // String drawing
     private readonly Stack<GameObject> stringList = new(); // First index is closest to hook
@@ -54,8 +55,19 @@ public class HookMovement : MonoBehaviour
         // Retract
         else if (isRetracting)
         {
+            if (isContact)
+            {
+                direction = (owner.PullContactInstance.transform.position - owner.transform.position).normalized;
+                dist = (owner.PullContactInstance.transform.position - owner.transform.position).magnitude;
+            }
+            else
+            {
+                direction = (transform.position - owner.transform.position).normalized;
+                dist = (transform.position - owner.transform.position).magnitude;
+            }
+
             // Moves the gum string toward the player
-            if (dist > 0f)
+            if (dist > 0.5f)
             {
                 dist -= Time.deltaTime * owner.retractSpeed;
                 transform.localPosition -= (owner.retractSpeed * Time.deltaTime * direction);
@@ -69,8 +81,19 @@ public class HookMovement : MonoBehaviour
         // Pull the player
         else if (isPullingPlayer)
         {
+            if (isContact)
+            {
+                direction = (owner.SurfaceContactInstance.transform.position - owner.transform.position).normalized;
+                dist = (owner.SurfaceContactInstance.transform.position - owner.transform.position).magnitude;
+            }
+            else
+            {
+                direction = (transform.position - owner.transform.position).normalized;
+                dist = (transform.position - owner.transform.position).magnitude;
+            }
+
             // Pull the player toward the gum
-            if (dist > 0f)
+            if (dist > 0.5f)
             {
                 dist -= Time.deltaTime * owner.retractSpeed;
                 owner.transform.localPosition += (owner.retractSpeed * Time.deltaTime * direction);
@@ -78,7 +101,7 @@ public class HookMovement : MonoBehaviour
             // If the player has reached the gum string, stop all gum movement
             else
             {
-                owner.latched = true;
+                owner.stuckToSurface = true;
                 isPullingPlayer = false;
             }
         }
@@ -103,6 +126,19 @@ public class HookMovement : MonoBehaviour
     // Handles drawing the gum string
     private void DrawString()
     {
+        if (isContact)
+        {
+            if (isRetracting)
+            {
+                StringGroupInstance.transform.rotation = Quaternion.LookRotation(Vector3.forward, -direction);
+                StringGroupInstance.transform.position = owner.PullContactInstance.transform.position;
+            }
+            else if (isPullingPlayer)
+            {
+                StringGroupInstance.transform.rotation = Quaternion.LookRotation(Vector3.forward, -direction);
+                StringGroupInstance.transform.position = owner.SurfaceContactInstance.transform.position;
+            }
+        }
         // If the length of the string has exceeded the combined length of the string sprites, spawn another string sprite
         if (dist > stringList.Count * stringSpriteLength * 7.5f)
         {
@@ -121,12 +157,23 @@ public class HookMovement : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
+        Debug.Log(collision.collider.gameObject.name);
         // Only accept gum collisions when extending
         if (!isPullingPlayer && !isRetracting)
         {
             // Handles pulling the player toward a surface
             if (collision.collider.gameObject.CompareTag("Surface"))
             {
+                GetComponent<SpriteRenderer>().enabled = false;
+                owner.stuckToSurface = false;
+                if (owner.SurfaceContactInstance)
+                {
+                    Destroy(owner.SurfaceContactInstance);
+                }
+                owner.SurfaceContactInstance = Instantiate(owner.contactPrefab, transform.position, Quaternion.LookRotation(Vector3.forward, collision.GetContact(0).normal));
+                owner.SurfaceContactInstance.transform.parent = collision.transform;
+                isContact = true;
+
                 // Pull the player toward the object
                 isExtending = false;
                 isRetracting = false;
@@ -140,7 +187,6 @@ public class HookMovement : MonoBehaviour
                 owner.transform.DetachChildren();
                 owner.GetComponent<Rigidbody2D>().gravityScale = 0f;
                 owner.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
-                owner.latchedNormal = collision.GetContact(0).normal;
 
                 // Recalculate distance
                 dist = Vector3.Distance(owner.transform.position, transform.position);
@@ -148,6 +194,15 @@ public class HookMovement : MonoBehaviour
             // Handles pulling an object toward the player
             else if (collision.gameObject.CompareTag("Pullable"))
             {
+                GetComponent<SpriteRenderer>().enabled = false;
+                if (owner.PullContactInstance)
+                {
+                    Destroy(owner.PullContactInstance);
+                }
+                owner.PullContactInstance = Instantiate(owner.contactPrefab, transform.position, Quaternion.LookRotation(Vector3.forward, collision.GetContact(0).normal));
+                owner.PullContactInstance.transform.parent = collision.transform;
+                isContact = true;
+
                 // Pull the object toward the player
                 isExtending = false;
                 isRetracting = true;

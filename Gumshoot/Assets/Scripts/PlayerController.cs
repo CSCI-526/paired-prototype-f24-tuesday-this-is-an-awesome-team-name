@@ -5,11 +5,12 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     public GameObject gumPrefab;
+    public GameObject contactPrefab;
 
     [HideInInspector] public bool gumExtended = false;
-    [HideInInspector] public bool latched = false;
-    [HideInInspector] public Vector2 latchedNormal = Vector2.up;
     [HideInInspector] public GameObject PulledObject = null;
+    [HideInInspector] public GameObject SurfaceContactInstance = null;
+    [HideInInspector] public GameObject PullContactInstance = null;
 
     public float jumpForce = 100f;
     public float throwForce = 100f;
@@ -17,19 +18,43 @@ public class PlayerController : MonoBehaviour
     public float extractSpeed;
     public float retractSpeed;
 
+    [HideInInspector] public bool stuckToSurface = false;
+    private Rigidbody2D rb;
+
+    private void Awake()
+    {
+        rb = GetComponent<Rigidbody2D>();
+    }
+
     // Update is called once per frame
     void Update()
     {
+        
+        if (stuckToSurface && SurfaceContactInstance)
+        {
+            Vector3 direction = (SurfaceContactInstance.transform.position - transform.position).normalized;
+            float dist = (SurfaceContactInstance.transform.position - transform.position).magnitude;
+            if (dist > 0.7f)
+            {
+                //transform.localPosition += (retractSpeed * Time.deltaTime * direction);
+                rb.velocity = direction * dist * 5;
+            }
+        }
+
         // Launch grappling hook on left click
         if (Input.GetKeyDown(KeyCode.Mouse0) && !gumExtended)
         {
             Vector3 direction = GetMouseForward();
 
             // If extending towards the latched surface, then launch off the surface
-            if (latched && Vector3.Angle(-direction, latchedNormal) < 45f)
+            if (SurfaceContactInstance && Vector3.Angle(-direction, transform.position - SurfaceContactInstance.transform.position) < 45f)
             {
                 GetComponent<Rigidbody2D>().gravityScale = 1.6f;
-                latched = false;
+                if (SurfaceContactInstance)
+                {
+                    Destroy(SurfaceContactInstance);
+                    SurfaceContactInstance = null;
+                }
                 GetComponent<Rigidbody2D>().AddForce(-direction * jumpForce);
             }
             else if (PulledObject != null)
@@ -38,6 +63,11 @@ public class PlayerController : MonoBehaviour
                 PulledObject.GetComponent<FixedJoint2D>().connectedBody = null;
                 PulledObject.GetComponent<FixedJoint2D>().enabled = false;
                 PulledObject.GetComponent<Rigidbody2D>().gravityScale = 1.6f;
+                if (PullContactInstance)
+                {
+                    Destroy(PullContactInstance);
+                    PullContactInstance = null;
+                }
 
                 // Launch the object in the mouse direction
                 PulledObject.transform.position = transform.position + direction;
