@@ -60,11 +60,6 @@ public class HookMovement : MonoBehaviour
                 direction = (owner.PullContactInstance.transform.position - owner.transform.position).normalized;
                 dist = (owner.PullContactInstance.transform.position - owner.transform.position).magnitude;
             }
-            else
-            {
-                direction = (transform.position - owner.transform.position).normalized;
-                dist = (transform.position - owner.transform.position).magnitude;
-            }
 
             // Moves the gum string toward the player
             if (dist > 0.5f)
@@ -85,11 +80,6 @@ public class HookMovement : MonoBehaviour
             {
                 direction = (owner.SurfaceContactInstance.transform.position - owner.transform.position).normalized;
                 dist = (owner.SurfaceContactInstance.transform.position - owner.transform.position).magnitude;
-            }
-            else
-            {
-                direction = (transform.position - owner.transform.position).normalized;
-                dist = (transform.position - owner.transform.position).magnitude;
             }
 
             // Pull the player toward the gum
