@@ -29,7 +29,6 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
         if (stuckToSurface && SurfaceContactInstance)
         {
             Vector3 direction = (SurfaceContactInstance.transform.position - transform.position).normalized;

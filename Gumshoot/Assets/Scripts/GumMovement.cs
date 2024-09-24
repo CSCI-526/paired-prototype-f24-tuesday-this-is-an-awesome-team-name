@@ -100,11 +100,21 @@ public class GumMovement : MonoBehaviour
         if (isComplete)
         {
             // Detach the pulled object from the gum and attach it to the player instead
-            if (owner.PulledObject != null)
+            if (state == GumState.PullingObject)
             {
                 transform.DetachChildren();
                 owner.PulledObject.GetComponent<FixedJoint2D>().enabled = true;
                 owner.PulledObject.GetComponent<FixedJoint2D>().connectedBody = owner.GetComponent<Rigidbody2D>();
+            }
+            else if (state == GumState.PullingEnemy)
+            {
+                Instantiate<GameObject>(owner.PulledObject.GetComponent<FlyingEnemyMovement>().controllerPrefab, owner.PulledObject.transform.position, Quaternion.identity);
+                Destroy(owner.PullContactInstance);
+                Destroy(owner.SurfaceContactInstance);
+                Destroy(owner.gameObject);
+                Destroy(gameObject);
+                Destroy(StringGroupInstance);
+                return;
             }
             owner.gumExtended = false;
             Destroy(gameObject);
@@ -198,6 +208,7 @@ public class GumMovement : MonoBehaviour
                 else
                 {
                     state = GumState.PullingEnemy;
+                    collision.gameObject.GetComponent<DamageObject>().canHurtPlayer = false;
                 }
 
                 // Attach the object onto the gum

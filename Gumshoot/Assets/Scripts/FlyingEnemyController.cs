@@ -5,18 +5,6 @@ using UnityEngine;
 public class FlyingEnemyController : MonoBehaviour
 {
     public float moveSpeed = 5f;
-    private Rigidbody2D rb;
-
-    // Start is called before the first frame update
-    void Awake()
-    {
-        rb = GetComponent<Rigidbody2D>();
-    }
-
-    private void OnEnable()
-    {
-        rb.gravityScale = 0f;
-    }
 
     // Update is called once per frame
     void Update()

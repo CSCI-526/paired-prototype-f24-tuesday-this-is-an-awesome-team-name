@@ -4,29 +4,45 @@ using UnityEngine;
 
 public class DamageObject : MonoBehaviour
 {
-    private bool canExplode = false;
+    [SerializeField] private int damage = 1;
+    [SerializeField] private bool canExplode = false;
+    public bool canHurtPlayer = false;
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (canExplode && !collision.collider.CompareTag("Gum"))
+        if (collision.collider.CompareTag("Player") && canHurtPlayer)
         {
             Health hpObj = collision.collider.GetComponent<Health>();
             if (hpObj)
             {
-                hpObj.Damage(1);
+                hpObj.Damage(damage);
             }
 
-            if (!collision.collider.CompareTag("Gum"))
+            if (canExplode)
             {
                 Destroy(gameObject);
             }
         }
-        
+        else if (!collision.collider.CompareTag("Gum"))
+        {
+            Health hpObj = collision.collider.GetComponent<Health>();
+            if (hpObj)
+            {
+                hpObj.Damage(damage);
+            }
+
+            if (canExplode)
+            {
+                Destroy(gameObject);
+            }
+        }
+
     }
 
     public IEnumerator Launch()
     {
-        yield return new WaitForSeconds(0.5f);
-        canExplode = true;
+        canHurtPlayer = false;
+        yield return new WaitForSeconds(0.4f);
+        canHurtPlayer = true;
     }
 }
