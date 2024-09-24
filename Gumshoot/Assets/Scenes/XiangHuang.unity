@@ -2771,7 +2771,7 @@ GameObject:
   - component: {fileID: 898974680}
   m_Layer: 0
   m_Name: block
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2864,7 +2864,7 @@ Transform:
   m_GameObject: {fileID: 898974676}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 48.4, y: 9.6, z: 0}
+  m_LocalPosition: {x: 182.5, y: -189.6, z: 0}
   m_LocalScale: {x: 11, y: 11, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -4387,6 +4387,7 @@ GameObject:
   - component: {fileID: 1648430659}
   - component: {fileID: 1648430658}
   - component: {fileID: 1648430657}
+  - component: {fileID: 1648430661}
   m_Layer: 0
   m_Name: button
   m_TagString: Untagged
@@ -4423,7 +4424,7 @@ BoxCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
@@ -4533,6 +4534,22 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1648430661
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1648430656}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e03739fafeb15be4aa747537e6964b8d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  targetObject: {fileID: 591265301}
+  functionName: StartFan
+  pressDepth: 0.1
+  pressSpeed: 5
 --- !u!1 &2133885849
 GameObject:
   m_ObjectHideFlags: 0
