@@ -64,6 +64,11 @@ public class PlayerController : MonoBehaviour
                 PulledObject.GetComponent<FixedJoint2D>().connectedBody = null;
                 PulledObject.GetComponent<FixedJoint2D>().enabled = false;
                 PulledObject.GetComponent<Rigidbody2D>().gravityScale = 1.6f;
+                DamageObject damageObj = PulledObject.GetComponent<DamageObject>();
+                if (damageObj)
+                {
+                    StartCoroutine(damageObj.Launch());
+                }
                 if (PullContactInstance)
                 {
                     Destroy(PullContactInstance);
