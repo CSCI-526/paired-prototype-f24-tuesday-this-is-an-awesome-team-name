@@ -168,7 +168,7 @@ MonoBehaviour:
   PulledObject: {fileID: 0}
   SurfaceContactInstance: {fileID: 0}
   PullContactInstance: {fileID: 0}
-  jumpForce: 200
+  jumpForce: 400
   throwForce: 800
   maxDist: 10
   extractSpeed: 24

@@ -47,7 +47,7 @@ public class PlayerController : MonoBehaviour
             Vector3 direction = GetMouseForward();
 
             // If extending towards the latched surface, then launch off the surface
-            if (SurfaceContactInstance && Vector3.Angle(-direction, transform.position - SurfaceContactInstance.transform.position) < 45f)
+            if (SurfaceContactInstance && Vector3.Angle(-direction, transform.position - SurfaceContactInstance.transform.position) < 30f)
             {
                 stuckToSurface = false;
                 GetComponent<Rigidbody2D>().gravityScale = 1.6f;
@@ -81,7 +81,7 @@ public class PlayerController : MonoBehaviour
                 gumExtended = true;
                 // Spawn gum
                 GameObject gumInstance = Instantiate(gumPrefab, transform);
-                gumInstance.GetComponent<HookMovement>().Initialize(this, direction);
+                gumInstance.GetComponent<GumMovement>().Initialize(this, direction);
             }
         }
     }
