@@ -4,17 +4,26 @@ using UnityEngine;
 
 public class Rotate : MonoBehaviour
 {
-    public float rotationSpeed = 50.0f;
-    // Start is called before the first frame update
-    void Start()
+    public float rotationSpeed = 50.0f; 
+    private bool isSpinning = false; 
+
+    public void StartFan()
     {
-        
+        isSpinning = true;
     }
 
-    // Update is called once per frame
+ 
+    public void StopFan()
+    {
+        isSpinning = false;
+    }
+
     void Update()
     {
-        transform.Rotate(Vector3.forward * rotationSpeed * Time.deltaTime);
+        if (isSpinning)
+        {
+            transform.Rotate(Vector3.forward, rotationSpeed * Time.deltaTime);
+        }
     }
 }
 
