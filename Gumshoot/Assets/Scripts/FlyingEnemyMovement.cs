@@ -16,6 +16,7 @@ public class FlyingEnemyMovement : MonoBehaviour
 
     [Header("References")]
     public Transform player;
+    public GameObject controllerPrefab;
 
     private Vector2 patrolStartPos;
     private CircleCollider2D visionCollider;

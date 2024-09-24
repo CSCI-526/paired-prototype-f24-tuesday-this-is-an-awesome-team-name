@@ -29,7 +29,6 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
         if (stuckToSurface && SurfaceContactInstance)
         {
             Vector3 direction = (SurfaceContactInstance.transform.position - transform.position).normalized;
@@ -47,7 +46,7 @@ public class PlayerController : MonoBehaviour
             Vector3 direction = GetMouseForward();
 
             // If extending towards the latched surface, then launch off the surface
-            if (SurfaceContactInstance && Vector3.Angle(-direction, transform.position - SurfaceContactInstance.transform.position) < 45f)
+            if (SurfaceContactInstance && Vector3.Angle(-direction, transform.position - SurfaceContactInstance.transform.position) < 30f)
             {
                 stuckToSurface = false;
                 GetComponent<Rigidbody2D>().gravityScale = 1.6f;
@@ -64,6 +63,11 @@ public class PlayerController : MonoBehaviour
                 PulledObject.GetComponent<FixedJoint2D>().connectedBody = null;
                 PulledObject.GetComponent<FixedJoint2D>().enabled = false;
                 PulledObject.GetComponent<Rigidbody2D>().gravityScale = 1.6f;
+                DamageObject damageObj = PulledObject.GetComponent<DamageObject>();
+                if (damageObj)
+                {
+                    StartCoroutine(damageObj.Launch());
+                }
                 if (PullContactInstance)
                 {
                     Destroy(PullContactInstance);
@@ -81,7 +85,7 @@ public class PlayerController : MonoBehaviour
                 gumExtended = true;
                 // Spawn gum
                 GameObject gumInstance = Instantiate(gumPrefab, transform);
-                gumInstance.GetComponent<HookMovement>().Initialize(this, direction);
+                gumInstance.GetComponent<GumMovement>().Initialize(this, direction);
             }
         }
     }
