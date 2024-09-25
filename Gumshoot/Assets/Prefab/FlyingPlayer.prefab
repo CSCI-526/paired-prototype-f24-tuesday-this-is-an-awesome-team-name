@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 287097100315109230}
   - component: {fileID: 4508682285947742965}
   - component: {fileID: 2518503189552226278}
+  - component: {fileID: 4506406082065551184}
   m_Layer: 0
   m_Name: FlyingPlayer
   m_TagString: Player
@@ -177,3 +178,27 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health: 1
+--- !u!114 &4506406082065551184
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7096354043435132444}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 74fde41824356d74e97e55064abbed8e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gumPrefab: {fileID: 9054875046446016090, guid: d7603b8a14e8d554b95682a780bc5c3e, type: 3}
+  contactPrefab: {fileID: 9054875046446016090, guid: 6bfd04db07688174a9949bc91d100c04, type: 3}
+  gumExtended: 0
+  PulledObject: {fileID: 0}
+  SurfaceContactInstance: {fileID: 0}
+  PullContactInstance: {fileID: 0}
+  jumpForce: 400
+  throwForce: 800
+  maxDist: 10
+  extractSpeed: 24
+  retractSpeed: 24
+  stuckToSurface: 0

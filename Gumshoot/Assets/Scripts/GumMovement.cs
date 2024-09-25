@@ -66,7 +66,7 @@ public class GumMovement : MonoBehaviour
                 goto case GumState.Retracting;
             case GumState.Retracting:
                 // Moves the gum string toward the player
-                if (dist > 0.3f)
+                if (dist > 0.8f)
                 {
                     dist -= Time.deltaTime * owner.retractSpeed;
                     transform.localPosition -= (owner.retractSpeed * Time.deltaTime * direction);
@@ -83,7 +83,7 @@ public class GumMovement : MonoBehaviour
                 dist = (owner.SurfaceContactInstance.transform.position - owner.transform.position).magnitude;
 
                 // Pull the player toward the gum
-                if (dist > 0.3f)
+                if (dist > 0.8f)
                 {
                     dist -= Time.deltaTime * owner.retractSpeed;
                     owner.transform.localPosition += (owner.retractSpeed * Time.deltaTime * direction);
@@ -102,15 +102,15 @@ public class GumMovement : MonoBehaviour
             // Detach the pulled object from the gum and attach it to the player instead
             if (state == GumState.PullingObject)
             {
+                owner.PulledObject.GetComponent<Collider2D>().enabled = true;
                 transform.DetachChildren();
                 owner.PulledObject.GetComponent<FixedJoint2D>().enabled = true;
                 owner.PulledObject.GetComponent<FixedJoint2D>().connectedBody = owner.GetComponent<Rigidbody2D>();
+                
             }
             else if (state == GumState.PullingEnemy)
             {
                 Instantiate<GameObject>(owner.PulledObject.GetComponent<FlyingEnemyMovement>().controllerPrefab, owner.PulledObject.transform.position, Quaternion.identity);
-                Destroy(owner.PullContactInstance);
-                Destroy(owner.SurfaceContactInstance);
                 Destroy(owner.gameObject);
                 Destroy(gameObject);
                 Destroy(StringGroupInstance);
@@ -192,6 +192,7 @@ public class GumMovement : MonoBehaviour
             // Handles pulling an object toward the player
             else if (collision.gameObject.CompareTag("Pullable") || collision.gameObject.CompareTag("Enemy"))
             {
+                collision.gameObject.GetComponent<Collider2D>().enabled = false;
                 GetComponent<SpriteRenderer>().enabled = false;
                 if (owner.PullContactInstance)
                 {

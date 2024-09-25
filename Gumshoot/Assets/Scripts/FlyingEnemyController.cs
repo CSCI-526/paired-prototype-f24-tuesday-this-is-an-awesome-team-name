@@ -10,9 +10,12 @@ public class FlyingEnemyController : MonoBehaviour
     public GameObject playerPrefab;
     private bool isCooldown = false;
 
+    private Rigidbody2D rb;
+
     // Start is called before the first frame update
     void Start()
     {
+        rb = GetComponent<Rigidbody2D>();
         GameObject.Find("CM vcam1").GetComponent<CinemachineVirtualCamera>().Follow = transform;
         FlyingEnemyMovement.player = transform;
         StartCoroutine(CooldownCoroutine());
@@ -27,7 +30,8 @@ public class FlyingEnemyController : MonoBehaviour
             float verticalInput = Input.GetAxis("Vertical");
 
             Vector3 moveDirection = new Vector3(horizontalInput, verticalInput, 0f);
-            transform.position += moveDirection * moveSpeed * Time.deltaTime;
+            rb.velocity = moveDirection * moveSpeed;
+            //transform.position += moveDirection * moveSpeed * Time.deltaTime;
         }
     }
 
