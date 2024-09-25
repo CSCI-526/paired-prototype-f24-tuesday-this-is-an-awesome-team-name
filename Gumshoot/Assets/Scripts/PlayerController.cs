@@ -35,25 +35,29 @@ public class PlayerController : MonoBehaviour
             float dist = (SurfaceContactInstance.transform.position - transform.position).magnitude;
             if (dist > 0.7f)
             {
-                //transform.localPosition += (retractSpeed * Time.deltaTime * direction);
-                rb.velocity = direction * dist * 5;
+                transform.localPosition += (retractSpeed * Time.deltaTime * direction);
+                //rb.velocity = direction * dist * 5;
             }
         }
-        if (Input.GetKeyDown(KeyCode.Space) && SurfaceContactInstance) {
-            stuckToSurface = false;
+
+        // Launch grappling hook on left click
+        if (Input.GetKeyDown(KeyCode.Mouse0) && !gumExtended)
+        {
+            Vector3 direction = GetMouseForward();
+
+            // If extending towards the latched surface, then launch off the surface
+            if (SurfaceContactInstance && Vector3.Angle(-direction, transform.position - SurfaceContactInstance.transform.position) < 10f)
+            {
+                stuckToSurface = false;
                 GetComponent<Rigidbody2D>().gravityScale = 1.6f;
                 if (SurfaceContactInstance)
                 {
                     Destroy(SurfaceContactInstance);
                     SurfaceContactInstance = null;
                 }
-                //GetComponent<Rigidbody2D>().AddForce(-direction * jumpForce);
-        }
-        // Launch grappling hook on left click
-        if (Input.GetKeyDown(KeyCode.Mouse0) && !gumExtended)
-        {
-            Vector3 direction = GetMouseForward();
-            if (PulledObject != null)
+                GetComponent<Rigidbody2D>().AddForce(-direction * jumpForce);
+            }
+            else if (PulledObject != null)
             {
                 // Disconnect the pulled object from the player
                 PulledObject.GetComponent<FixedJoint2D>().connectedBody = null;

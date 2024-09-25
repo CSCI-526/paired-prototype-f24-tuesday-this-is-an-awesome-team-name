@@ -5,22 +5,25 @@ using UnityEngine;
 public class DamageObject : MonoBehaviour
 {
     [SerializeField] private int damage = 1;
-    [SerializeField] private bool canExplode = false;
+    [SerializeField] private bool canExplode = true;
     public bool canHurtPlayer = false;
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.collider.CompareTag("Player") && canHurtPlayer)
+        if (collision.collider.CompareTag("Player"))
         {
-            Health hpObj = collision.collider.GetComponent<Health>();
-            if (hpObj)
+            if (canHurtPlayer)
             {
-                hpObj.Damage(damage);
-            }
+                Health hpObj = collision.collider.GetComponent<Health>();
+                if (hpObj)
+                {
+                    hpObj.Damage(damage);
+                }
 
-            if (canExplode)
-            {
-                Destroy(gameObject);
+                if (canExplode)
+                {
+                    Destroy(gameObject);
+                }
             }
         }
         else if (!collision.collider.CompareTag("Gum"))

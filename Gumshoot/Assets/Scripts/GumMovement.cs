@@ -66,7 +66,7 @@ public class GumMovement : MonoBehaviour
                 goto case GumState.Retracting;
             case GumState.Retracting:
                 // Moves the gum string toward the player
-                if (dist > 0.5f)
+                if (dist > 0.3f)
                 {
                     dist -= Time.deltaTime * owner.retractSpeed;
                     transform.localPosition -= (owner.retractSpeed * Time.deltaTime * direction);
@@ -83,7 +83,7 @@ public class GumMovement : MonoBehaviour
                 dist = (owner.SurfaceContactInstance.transform.position - owner.transform.position).magnitude;
 
                 // Pull the player toward the gum
-                if (dist > 0.5f)
+                if (dist > 0.3f)
                 {
                     dist -= Time.deltaTime * owner.retractSpeed;
                     owner.transform.localPosition += (owner.retractSpeed * Time.deltaTime * direction);
