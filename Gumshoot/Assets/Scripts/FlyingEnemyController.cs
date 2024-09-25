@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Cinemachine;
 using UnityEngine;
 
 public class FlyingEnemyController : MonoBehaviour
@@ -12,6 +13,8 @@ public class FlyingEnemyController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        GameObject.Find("CM vcam1").GetComponent<CinemachineVirtualCamera>().Follow = transform;
+        FlyingEnemyMovement.player = transform;
         StartCoroutine(CooldownCoroutine());
     }
 
@@ -30,9 +33,11 @@ public class FlyingEnemyController : MonoBehaviour
 
     IEnumerator CooldownCoroutine()
     {
-        yield return new WaitForSeconds(5f);
+        yield return new WaitForSeconds(15f);
         isCooldown = true;
-        Instantiate(playerPrefab, transform.position, Quaternion.identity);
+        GameObject newPlayer = Instantiate(playerPrefab, transform.position, Quaternion.identity);
+        GameObject.Find("CM vcam1").GetComponent<CinemachineVirtualCamera>().Follow = newPlayer.transform;
+        FlyingEnemyMovement.player = newPlayer.transform;
         Destroy(gameObject);
     }
 }

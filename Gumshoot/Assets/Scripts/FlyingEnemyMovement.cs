@@ -15,7 +15,7 @@ public class FlyingEnemyMovement : MonoBehaviour
     public LayerMask playerLayer;
 
     [Header("References")]
-    public Transform player;
+    public static Transform player;
     public GameObject controllerPrefab;
 
     private Vector2 patrolStartPos;
