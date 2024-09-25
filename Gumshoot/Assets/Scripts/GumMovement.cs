@@ -86,7 +86,8 @@ public class GumMovement : MonoBehaviour
                 if (dist > 0.8f)
                 {
                     dist -= Time.deltaTime * owner.retractSpeed;
-                    owner.transform.localPosition += (owner.retractSpeed * Time.deltaTime * direction);
+                    //owner.transform.localPosition += (owner.retractSpeed * Time.deltaTime * direction);
+                    owner.rb.position += (Vector2)(owner.retractSpeed * Time.deltaTime * direction);
                 }
                 // If the player has reached the gum string, stop all gum movement
                 else
@@ -123,6 +124,11 @@ public class GumMovement : MonoBehaviour
         }
 
         DrawString();
+    }
+
+    private void OnDestroy()
+    {
+        Destroy(StringGroupInstance);
     }
 
     // Handles drawing the gum string
@@ -192,6 +198,13 @@ public class GumMovement : MonoBehaviour
             // Handles pulling an object toward the player
             else if (collision.gameObject.CompareTag("Pullable") || collision.gameObject.CompareTag("Enemy"))
             {
+                // Do not grab objects if the player is already holding something
+                if (owner.PulledObject != null)
+                {
+                    state = GumState.Retracting;
+                    return;
+                }
+
                 collision.gameObject.GetComponent<Collider2D>().enabled = false;
                 GetComponent<SpriteRenderer>().enabled = false;
                 if (owner.PullContactInstance)

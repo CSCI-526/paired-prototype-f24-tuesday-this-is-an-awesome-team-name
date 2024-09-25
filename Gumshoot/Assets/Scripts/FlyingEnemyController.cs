@@ -30,6 +30,7 @@ public class FlyingEnemyController : MonoBehaviour
             float verticalInput = Input.GetAxis("Vertical");
 
             Vector3 moveDirection = new Vector3(horizontalInput, verticalInput, 0f);
+            //rb.MovePosition(transform.position + moveSpeed * Time.deltaTime * moveDirection);
             rb.velocity = moveDirection * moveSpeed;
             //transform.position += moveDirection * moveSpeed * Time.deltaTime;
         }

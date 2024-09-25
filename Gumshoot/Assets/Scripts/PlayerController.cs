@@ -19,7 +19,8 @@ public class PlayerController : MonoBehaviour
     public float retractSpeed;
 
     [HideInInspector] public bool stuckToSurface = false;
-    private Rigidbody2D rb;
+    [HideInInspector] public Rigidbody2D rb;
+    private GameObject gumInstance = null;
 
     private void Awake()
     {
@@ -45,8 +46,16 @@ public class PlayerController : MonoBehaviour
         {
             Vector3 direction = GetMouseForward();
 
+            gumExtended = true;
+            // Spawn gum
+            gumInstance = Instantiate(gumPrefab, transform);
+            gumInstance.GetComponent<GumMovement>().Initialize(this, direction);
+        }
+        else if (Input.GetKeyDown(KeyCode.Mouse1) && !gumExtended)
+        {
+            Vector3 direction = GetMouseForward();
             // If extending towards the latched surface, then launch off the surface
-            if (SurfaceContactInstance && Vector3.Angle(-direction, transform.position - SurfaceContactInstance.transform.position) < 15f)
+            if (SurfaceContactInstance && Vector3.Angle(-direction, transform.position - SurfaceContactInstance.transform.position) < 30f)
             {
                 stuckToSurface = false;
                 if (GetComponent<FlyingEnemyController>() == null)
@@ -59,7 +68,7 @@ public class PlayerController : MonoBehaviour
                     Destroy(SurfaceContactInstance);
                     SurfaceContactInstance = null;
                 }
-                
+
             }
             else if (PulledObject != null)
             {
@@ -84,13 +93,6 @@ public class PlayerController : MonoBehaviour
 
                 PulledObject = null;
             }
-            else
-            {
-                gumExtended = true;
-                // Spawn gum
-                GameObject gumInstance = Instantiate(gumPrefab, transform);
-                gumInstance.GetComponent<GumMovement>().Initialize(this, direction);
-            }
         }
     }
 
@@ -112,12 +114,15 @@ public class PlayerController : MonoBehaviour
         if (PullContactInstance)
         {
             Destroy(PullContactInstance);
-            PullContactInstance = null;
         }
         if (SurfaceContactInstance)
         {
             Destroy(SurfaceContactInstance);
-            SurfaceContactInstance = null;
+        }
+
+        if (gumInstance)
+        {
+            Destroy(gumInstance);
         }
     }
 
