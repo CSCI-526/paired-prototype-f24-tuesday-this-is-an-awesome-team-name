@@ -3989,7 +3989,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damage: 1
-  canExplode: 1
+  canExplode: 0
   canHurtPlayer: 1
 --- !u!1 &1379700767
 GameObject:
