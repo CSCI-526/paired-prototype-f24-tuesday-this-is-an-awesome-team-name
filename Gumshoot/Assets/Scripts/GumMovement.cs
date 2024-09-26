@@ -112,7 +112,9 @@ public class GumMovement : MonoBehaviour
             }
             else if (state == GumState.PullingEnemy)
             {
-                Instantiate<GameObject>(owner.PulledObject.GetComponent<FlyingEnemyMovement>().controllerPrefab, owner.PulledObject.transform.position, Quaternion.identity);
+                GameObject newFlyingPlayer = Instantiate(owner.PulledObject.GetComponent<FlyingEnemyMovement>().controllerPrefab, owner.PulledObject.transform.position, Quaternion.identity);
+                newFlyingPlayer.transform.localScale = owner.PulledObject.transform.lossyScale;
+
                 Destroy(owner.PulledObject);
                 Destroy(owner.gameObject);
                 Destroy(gameObject);
