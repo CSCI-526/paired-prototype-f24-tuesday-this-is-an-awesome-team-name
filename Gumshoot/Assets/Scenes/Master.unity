@@ -649,7 +649,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damage: 1
   canExplode: 0
-  canHurtPlayer: 0
+  canHurtPlayer: 1
 --- !u!61 &236283425
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1242,7 +1242,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damage: 1
   canExplode: 0
-  canHurtPlayer: 0
+  canHurtPlayer: 1
 --- !u!61 &396172202
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1839,7 +1839,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damage: 1
   canExplode: 0
-  canHurtPlayer: 0
+  canHurtPlayer: 1
 --- !u!61 &566160518
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -2512,7 +2512,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damage: 1
   canExplode: 0
-  canHurtPlayer: 0
+  canHurtPlayer: 1
 --- !u!61 &964185349
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -2658,7 +2658,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damage: 1
   canExplode: 0
-  canHurtPlayer: 0
+  canHurtPlayer: 1
 --- !u!61 &1020154012
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -2804,7 +2804,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damage: 1
   canExplode: 0
-  canHurtPlayer: 0
+  canHurtPlayer: 1
 --- !u!61 &1088796509
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -2950,7 +2950,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damage: 1
   canExplode: 0
-  canHurtPlayer: 0
+  canHurtPlayer: 1
 --- !u!61 &1146663073
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -3491,7 +3491,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damage: 1
   canExplode: 0
-  canHurtPlayer: 0
+  canHurtPlayer: 1
 --- !u!61 &1384826481
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -3765,7 +3765,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damage: 1
   canExplode: 0
-  canHurtPlayer: 0
+  canHurtPlayer: 1
 --- !u!61 &1475827291
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -4416,7 +4416,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damage: 1
   canExplode: 0
-  canHurtPlayer: 0
+  canHurtPlayer: 1
 --- !u!61 &1672329340
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -5083,7 +5083,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damage: 1
   canExplode: 0
-  canHurtPlayer: 0
+  canHurtPlayer: 1
 --- !u!61 &1849486482
 BoxCollider2D:
   m_ObjectHideFlags: 0
