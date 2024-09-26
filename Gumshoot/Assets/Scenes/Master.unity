@@ -3816,6 +3816,7 @@ GameObject:
   - component: {fileID: 1358539263}
   - component: {fileID: 1358539262}
   - component: {fileID: 1358539266}
+  - component: {fileID: 1358539267}
   m_Layer: 7
   m_Name: rotate2
   m_TagString: Surface
@@ -3975,6 +3976,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rotationSpeed: 50
+--- !u!114 &1358539267
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1358539261}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5989c69fb65d8e945b1ac769f80f7f46, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damage: 1
+  canExplode: 1
+  canHurtPlayer: 1
 --- !u!1 &1379700767
 GameObject:
   m_ObjectHideFlags: 0
