@@ -55,7 +55,7 @@ public class PlayerController : MonoBehaviour
         {
             Vector3 direction = GetMouseForward();
             // If extending towards the latched surface, then launch off the surface
-            if (SurfaceContactInstance && Vector3.Angle(-direction, transform.position - SurfaceContactInstance.transform.position) < 30f)
+            if (SurfaceContactInstance && Vector3.Angle(-direction, transform.position - SurfaceContactInstance.transform.position) < 45f)
             {
                 stuckToSurface = false;
                 if (GetComponent<FlyingEnemyController>() == null)
@@ -73,8 +73,9 @@ public class PlayerController : MonoBehaviour
             else if (PulledObject != null)
             {
                 // Disconnect the pulled object from the player
-                PulledObject.GetComponent<FixedJoint2D>().connectedBody = null;
-                PulledObject.GetComponent<FixedJoint2D>().enabled = false;
+                //PulledObject.GetComponent<FixedJoint2D>().connectedBody = null;
+                //PulledObject.GetComponent<FixedJoint2D>().enabled = false;
+                PulledObject.transform.parent = null;
                 PulledObject.GetComponent<Rigidbody2D>().gravityScale = 1.6f;
                 DamageObject damageObj = PulledObject.GetComponent<DamageObject>();
                 if (damageObj)
@@ -101,11 +102,13 @@ public class PlayerController : MonoBehaviour
         if (PulledObject != null)
         {
             // Disconnect the pulled object from the player
-            if (PulledObject.GetComponent<FixedJoint2D>())
-            {
-                PulledObject.GetComponent<FixedJoint2D>().connectedBody = null;
-                PulledObject.GetComponent<FixedJoint2D>().enabled = false;
-            }
+            //if (PulledObject.GetComponent<FixedJoint2D>())
+            //{
+            //    PulledObject.GetComponent<FixedJoint2D>().connectedBody = null;
+            //    PulledObject.GetComponent<FixedJoint2D>().enabled = false;
+            //}
+            PulledObject.transform.parent = null;
+            PulledObject.GetComponent<Collider2D>().enabled = true;
             PulledObject.GetComponent<Rigidbody2D>().gravityScale = 1.6f;
 
             PulledObject = null;

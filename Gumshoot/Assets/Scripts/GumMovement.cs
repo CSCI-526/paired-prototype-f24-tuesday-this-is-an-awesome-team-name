@@ -86,8 +86,8 @@ public class GumMovement : MonoBehaviour
                 if (dist > 0.8f)
                 {
                     dist -= Time.deltaTime * owner.retractSpeed;
-                    //owner.transform.localPosition += (owner.retractSpeed * Time.deltaTime * direction);
-                    owner.rb.position += (Vector2)(owner.retractSpeed * Time.deltaTime * direction);
+                    owner.transform.position += (owner.retractSpeed * Time.deltaTime * direction);
+                    //owner.rb.position += (Vector2)(owner.retractSpeed * Time.deltaTime * direction);
                 }
                 // If the player has reached the gum string, stop all gum movement
                 else
@@ -103,19 +103,25 @@ public class GumMovement : MonoBehaviour
             // Detach the pulled object from the gum and attach it to the player instead
             if (state == GumState.PullingObject)
             {
-                owner.PulledObject.GetComponent<Collider2D>().enabled = true;
+                //owner.PulledObject.GetComponent<Collider2D>().enabled = true;
                 transform.DetachChildren();
-                owner.PulledObject.GetComponent<FixedJoint2D>().enabled = true;
-                owner.PulledObject.GetComponent<FixedJoint2D>().connectedBody = owner.GetComponent<Rigidbody2D>();
+                //owner.PulledObject.GetComponent<FixedJoint2D>().enabled = true;
+                //owner.PulledObject.GetComponent<FixedJoint2D>().connectedBody = owner.GetComponent<Rigidbody2D>();
+                owner.PulledObject.transform.parent = owner.transform;
                 
             }
             else if (state == GumState.PullingEnemy)
             {
                 Instantiate<GameObject>(owner.PulledObject.GetComponent<FlyingEnemyMovement>().controllerPrefab, owner.PulledObject.transform.position, Quaternion.identity);
+                Destroy(owner.PulledObject);
                 Destroy(owner.gameObject);
                 Destroy(gameObject);
                 Destroy(StringGroupInstance);
                 return;
+            }
+            else if (state == GumState.PullingPlayer)
+            {
+                owner.transform.position = owner.SurfaceContactInstance.transform.position;
             }
             owner.gumExtended = false;
             Destroy(gameObject);
@@ -188,7 +194,8 @@ public class GumMovement : MonoBehaviour
                 transform.rotation = Quaternion.LookRotation(Vector3.forward, collision.GetContact(0).normal);
 
                 // Stop player movement
-                owner.transform.DetachChildren();
+                //owner.transform.DetachChildren();
+                transform.parent = null;
                 owner.GetComponent<Rigidbody2D>().gravityScale = 0f;
                 owner.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
 
@@ -205,7 +212,7 @@ public class GumMovement : MonoBehaviour
                     return;
                 }
 
-                collision.gameObject.GetComponent<Collider2D>().enabled = false;
+                //collision.gameObject.GetComponent<Collider2D>().enabled = false;
                 GetComponent<SpriteRenderer>().enabled = false;
                 if (owner.PullContactInstance)
                 {

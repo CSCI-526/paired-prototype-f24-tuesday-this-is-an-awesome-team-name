@@ -6087,7 +6087,6 @@ GameObject:
   - component: {fileID: 2042213654}
   - component: {fileID: 2042213653}
   - component: {fileID: 2042213652}
-  - component: {fileID: 2042213656}
   m_Layer: 7
   m_Name: block
   m_TagString: Pullable
@@ -6234,25 +6233,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!255 &2042213656
-FixedJoint2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2042213651}
-  m_Enabled: 1
-  serializedVersion: 4
-  m_EnableCollision: 0
-  m_ConnectedRigidBody: {fileID: 0}
-  m_BreakForce: Infinity
-  m_BreakTorque: Infinity
-  m_BreakAction: 2
-  m_AutoConfigureConnectedAnchor: 1
-  m_Anchor: {x: 0, y: 0}
-  m_ConnectedAnchor: {x: -27.62, y: -188.11}
-  m_DampingRatio: 0
-  m_Frequency: 0
 --- !u!1 &2140051093
 GameObject:
   m_ObjectHideFlags: 0

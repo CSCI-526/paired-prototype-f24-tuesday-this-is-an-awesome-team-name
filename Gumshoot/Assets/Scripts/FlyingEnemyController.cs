@@ -31,8 +31,8 @@ public class FlyingEnemyController : MonoBehaviour
 
             Vector3 moveDirection = new Vector3(horizontalInput, verticalInput, 0f);
             //rb.MovePosition(transform.position + moveSpeed * Time.deltaTime * moveDirection);
-            rb.velocity = moveDirection * moveSpeed;
-            //transform.position += moveDirection * moveSpeed * Time.deltaTime;
+            //rb.velocity = moveDirection * moveSpeed;
+            transform.position += moveDirection * moveSpeed * Time.deltaTime;
         }
     }
 
