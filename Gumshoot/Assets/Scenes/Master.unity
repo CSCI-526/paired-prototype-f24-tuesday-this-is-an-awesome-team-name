@@ -552,6 +552,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 4239182048248042017, guid: c0c7d5c113a355945945b0aba06973bd, type: 3}
+      propertyPath: m_Radius
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 6686161508216162970, guid: c0c7d5c113a355945945b0aba06973bd, type: 3}
       propertyPath: m_LocalScale.x
       value: 1
@@ -566,7 +570,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6686161508216162970, guid: c0c7d5c113a355945945b0aba06973bd, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -20.844448
+      value: -21.1
       objectReference: {fileID: 0}
     - target: {fileID: 6686161508216162970, guid: c0c7d5c113a355945945b0aba06973bd, type: 3}
       propertyPath: m_LocalPosition.y
@@ -607,6 +611,14 @@ PrefabInstance:
     - target: {fileID: 7852879155507105236, guid: c0c7d5c113a355945945b0aba06973bd, type: 3}
       propertyPath: m_Name
       value: FlyingEnemy
+      objectReference: {fileID: 0}
+    - target: {fileID: 8121366884523129137, guid: c0c7d5c113a355945945b0aba06973bd, type: 3}
+      propertyPath: chaseSpeed
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8992701682191526904, guid: c0c7d5c113a355945945b0aba06973bd, type: 3}
+      propertyPath: segments
+      value: 50
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1907,7 +1919,7 @@ Transform:
   m_GameObject: {fileID: 519614192}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -34.467934, y: -213.09247, z: -10}
+  m_LocalPosition: {x: -34.5, y: -213.7, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1928,11 +1940,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2795065087558806391, guid: bae40fb8a0b044c4699ba0bb19c6bedb, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -34.467934
+      value: -34.5
       objectReference: {fileID: 0}
     - target: {fileID: 2795065087558806391, guid: bae40fb8a0b044c4699ba0bb19c6bedb, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -213.09247
+      value: -213.7
       objectReference: {fileID: 0}
     - target: {fileID: 2795065087558806391, guid: bae40fb8a0b044c4699ba0bb19c6bedb, type: 3}
       propertyPath: m_LocalPosition.z
@@ -1979,6 +1991,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 4239182048248042017, guid: c0c7d5c113a355945945b0aba06973bd, type: 3}
+      propertyPath: m_Radius
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 6686161508216162970, guid: c0c7d5c113a355945945b0aba06973bd, type: 3}
       propertyPath: m_LocalScale.x
       value: 0.5
@@ -2358,6 +2374,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 4239182048248042017, guid: c0c7d5c113a355945945b0aba06973bd, type: 3}
+      propertyPath: m_Radius
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 6686161508216162970, guid: c0c7d5c113a355945945b0aba06973bd, type: 3}
       propertyPath: m_LocalScale.x
       value: 0.5
@@ -4425,6 +4445,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 4239182048248042017, guid: c0c7d5c113a355945945b0aba06973bd, type: 3}
+      propertyPath: m_Radius
+      value: 15
+      objectReference: {fileID: 0}
     - target: {fileID: 6686161508216162970, guid: c0c7d5c113a355945945b0aba06973bd, type: 3}
       propertyPath: m_LocalScale.x
       value: 0.5
@@ -4439,11 +4463,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6686161508216162970, guid: c0c7d5c113a355945945b0aba06973bd, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 5.44
+      value: 1.38
       objectReference: {fileID: 0}
     - target: {fileID: 6686161508216162970, guid: c0c7d5c113a355945945b0aba06973bd, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -196.73
+      value: -194.65
       objectReference: {fileID: 0}
     - target: {fileID: 6686161508216162970, guid: c0c7d5c113a355945945b0aba06973bd, type: 3}
       propertyPath: m_LocalPosition.z
@@ -4480,6 +4504,10 @@ PrefabInstance:
     - target: {fileID: 7852879155507105236, guid: c0c7d5c113a355945945b0aba06973bd, type: 3}
       propertyPath: m_Name
       value: FlyingEnemy (4)
+      objectReference: {fileID: 0}
+    - target: {fileID: 8121366884523129137, guid: c0c7d5c113a355945945b0aba06973bd, type: 3}
+      propertyPath: chaseSpeed
+      value: 5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -4607,7 +4635,7 @@ Transform:
   m_GameObject: {fileID: 1449479552}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -34.467934, y: -213.09247, z: -10}
+  m_LocalPosition: {x: -34.5, y: -213.7, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
