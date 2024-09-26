@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class Button : MonoBehaviour
 {
-    public GameObject targetObject; 
+    public GameObject targetObject1; 
+    public GameObject targetObject2;
     public string functionName; 
 
     private Vector3 originalPosition;
@@ -28,7 +29,8 @@ public class Button : MonoBehaviour
 
     System.Collections.IEnumerator PressButton()
     {
-        targetObject.SendMessage(functionName);
+        targetObject1.SendMessage(functionName);
+        targetObject2.SendMessage(functionName);
         yield return null;
     }
     
