@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Cinemachine;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class FlyingEnemyController : MonoBehaviour
 {
@@ -9,13 +10,15 @@ public class FlyingEnemyController : MonoBehaviour
 
     public GameObject playerPrefab;
     private bool isCooldown = false;
+    private float cooldownDuration = 15f;
+    public Text countdownText;
 
-    private Rigidbody2D rb;
 
     // Start is called before the first frame update
     void Start()
     {
-        rb = GetComponent<Rigidbody2D>();
+        countdownText = GameObject.Find("Canvas").GetComponentInChildren<Text>();
+
         GameObject.Find("CM vcam1").GetComponent<CinemachineVirtualCamera>().Follow = transform;
         FlyingEnemyMovement.player = transform;
         StartCoroutine(CooldownCoroutine());
@@ -30,15 +33,23 @@ public class FlyingEnemyController : MonoBehaviour
             float verticalInput = Input.GetAxis("Vertical");
 
             Vector3 moveDirection = new Vector3(horizontalInput, verticalInput, 0f);
-            //rb.MovePosition(transform.position + moveSpeed * Time.deltaTime * moveDirection);
-            //rb.velocity = moveDirection * moveSpeed;
             transform.position += moveDirection * moveSpeed * Time.deltaTime;
         }
     }
 
     IEnumerator CooldownCoroutine()
     {
-        yield return new WaitForSeconds(15f);
+        float remainingTime = cooldownDuration;
+
+        while (remainingTime > 0)
+        {
+            countdownText.text = remainingTime.ToString("F1") + "s";
+            yield return new WaitForSeconds(1f);
+            remainingTime -= 1f;
+        }
+
+        countdownText.text = "";
+
         isCooldown = true;
         GameObject newPlayer = Instantiate(playerPrefab, transform.position, Quaternion.identity);
         GameObject.Find("CM vcam1").GetComponent<CinemachineVirtualCamera>().Follow = newPlayer.transform;
