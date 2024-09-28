@@ -1,3 +1,4 @@
+using Cinemachine.Utility;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -113,7 +114,7 @@ public class GumMovement : MonoBehaviour
             else if (state == GumState.PullingEnemy)
             {
                 GameObject newFlyingPlayer = Instantiate(owner.PulledObject.GetComponent<FlyingEnemyMovement>().controllerPrefab, owner.PulledObject.transform.position, Quaternion.identity);
-                newFlyingPlayer.transform.localScale = owner.PulledObject.transform.lossyScale;
+                newFlyingPlayer.transform.localScale = (owner.PulledObject.transform.lossyScale).Abs();
 
                 Destroy(owner.PulledObject);
                 Destroy(owner.gameObject);

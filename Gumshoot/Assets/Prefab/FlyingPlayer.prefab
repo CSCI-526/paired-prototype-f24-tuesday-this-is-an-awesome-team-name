@@ -165,6 +165,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeed: 5
   playerPrefab: {fileID: 2795065087558806387, guid: bae40fb8a0b044c4699ba0bb19c6bedb, type: 3}
+  countdownText: {fileID: 0}
 --- !u!114 &2518503189552226278
 MonoBehaviour:
   m_ObjectHideFlags: 0
