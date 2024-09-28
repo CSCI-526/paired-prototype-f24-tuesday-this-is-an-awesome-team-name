@@ -19,7 +19,7 @@ public class Button : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        if (!isPressed && other.CompareTag("Pullable"))
+        if (!isPressed && other.CompareTag("Block"))
         {
             isPressed = true;
             StartCoroutine(PressButton());

@@ -15,7 +15,7 @@ public class VisionColliderHandler : MonoBehaviour
 
     [Header("Line Renderer Settings")]
     public int segments = 50;
-    public Color lineColor = Color.yellow;
+    public Color lineColor = Color.red;
 
     void Start()
     {

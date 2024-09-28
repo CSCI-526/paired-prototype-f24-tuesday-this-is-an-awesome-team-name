@@ -61,8 +61,13 @@ public class PlayerController : MonoBehaviour
                 if (GetComponent<FlyingEnemyController>() == null)
                 {
                     GetComponent<Rigidbody2D>().gravityScale = 1.6f;
-                    GetComponent<Rigidbody2D>().AddForce(-direction * jumpForce);
+                    //GetComponent<Rigidbody2D>().AddForce(-direction * jumpForce);
                 }
+                if (PulledObject != null)
+                {
+                    PulledObject.GetComponent<Rigidbody2D>().gravityScale = 1.6f;
+                }
+
                 if (SurfaceContactInstance)
                 {
                     Destroy(SurfaceContactInstance);

@@ -200,13 +200,17 @@ public class GumMovement : MonoBehaviour
                 //owner.transform.DetachChildren();
                 transform.parent = null;
                 owner.GetComponent<Rigidbody2D>().gravityScale = 0f;
+                if (owner.PulledObject != null)
+                {
+                    owner.PulledObject.GetComponent<Rigidbody2D>().gravityScale = 0f;
+                }
                 owner.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
 
                 // Recalculate distance
                 dist = Vector3.Distance(owner.transform.position, transform.position);
             }
             // Handles pulling an object toward the player
-            else if (collision.gameObject.CompareTag("Pullable") || collision.gameObject.CompareTag("Enemy"))
+            else if (collision.gameObject.CompareTag("Block") || collision.gameObject.CompareTag("Pullable") || collision.gameObject.CompareTag("Enemy"))
             {
                 // Do not grab objects if the player is already holding something
                 if (owner.PulledObject != null)
@@ -226,7 +230,7 @@ public class GumMovement : MonoBehaviour
                 Health enemyHealth = collision.gameObject.GetComponent<Health>();
 
                 // Pull the object toward the player
-                if (collision.gameObject.CompareTag("Pullable"))
+                if (collision.gameObject.CompareTag("Pullable") || collision.gameObject.CompareTag("Block"))
                 {
                     state = GumState.PullingObject;
                 }
