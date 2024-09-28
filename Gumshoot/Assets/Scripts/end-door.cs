@@ -10,13 +10,6 @@ public class EndDoor : MonoBehaviour
     public void OpentheDoor()
     {
         isOpening = true;
-    }
-
-    void Update()
-    {
-        if (isOpening)
-        {
-            door.SetActive(false);
-        }
+        gameObject.SetActive(false);
     }
 }
