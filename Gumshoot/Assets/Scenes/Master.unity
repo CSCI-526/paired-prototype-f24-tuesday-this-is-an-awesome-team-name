@@ -2115,8 +2115,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a0d6b41190b5b714289e895cd3b21d43, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  targetObject: {fileID: 1075866644}
-  functionName: OpentheDoor
+  OnPress:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1075866646}
+        m_TargetAssemblyTypeName: EndDoor, Assembly-CSharp
+        m_MethodName: OpentheDoor
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &444683100
 GameObject:
   m_ObjectHideFlags: 0
@@ -5814,7 +5827,7 @@ GameObject:
   - component: {fileID: 1500840787}
   - component: {fileID: 1500840786}
   - component: {fileID: 1500840785}
-  - component: {fileID: 1500840784}
+  - component: {fileID: 1500840789}
   m_Layer: 7
   m_Name: button
   m_TagString: Surface
@@ -5822,21 +5835,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1500840784
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1500840783}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e03739fafeb15be4aa747537e6964b8d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  targetObject1: {fileID: 1494696819}
-  targetObject2: {fileID: 1358539261}
-  functionName: StartFan
 --- !u!61 &1500840785
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -5976,6 +5974,45 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1500840789
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1500840783}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a0d6b41190b5b714289e895cd3b21d43, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  OnPress:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1494696821}
+        m_TargetAssemblyTypeName: Rotate, Assembly-CSharp
+        m_MethodName: StartFan
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1358539266}
+        m_TargetAssemblyTypeName: Rotate, Assembly-CSharp
+        m_MethodName: StartFan
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &1571981729
 GameObject:
   m_ObjectHideFlags: 0
