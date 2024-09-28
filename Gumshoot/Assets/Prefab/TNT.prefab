@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 4276432119190274665}
   - component: {fileID: 6652915796781643626}
   - component: {fileID: 6910713602928583671}
-  - component: {fileID: 335933803454887835}
   - component: {fileID: -1968654752170384713}
   m_Layer: 0
   m_Name: TNT
@@ -148,7 +147,7 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 0
+  m_GravityScale: 1.6
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
@@ -160,25 +159,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!255 &335933803454887835
-FixedJoint2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7451966236787770428}
-  m_Enabled: 1
-  serializedVersion: 4
-  m_EnableCollision: 0
-  m_ConnectedRigidBody: {fileID: 0}
-  m_BreakForce: Infinity
-  m_BreakTorque: Infinity
-  m_BreakAction: 2
-  m_AutoConfigureConnectedAnchor: 1
-  m_Anchor: {x: 0, y: 0}
-  m_ConnectedAnchor: {x: 3.3, y: -0.06}
-  m_DampingRatio: 0
-  m_Frequency: 0
 --- !u!114 &-1968654752170384713
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -193,3 +173,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damage: 1
   canExplode: 1
+  canHurtPlayer: 0

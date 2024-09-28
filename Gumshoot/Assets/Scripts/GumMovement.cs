@@ -223,13 +223,14 @@ public class GumMovement : MonoBehaviour
                 }
                 owner.PullContactInstance = Instantiate(owner.contactPrefab, transform.position, Quaternion.LookRotation(Vector3.forward, collision.GetContact(0).normal));
                 owner.PullContactInstance.transform.parent = collision.transform;
+                Health enemyHealth = collision.gameObject.GetComponent<Health>();
 
                 // Pull the object toward the player
                 if (collision.gameObject.CompareTag("Pullable"))
                 {
                     state = GumState.PullingObject;
                 }
-                else
+                else if (enemyHealth && enemyHealth.health <= 0)
                 {
                     state = GumState.PullingEnemy;
                     collision.gameObject.GetComponent<DamageObject>().canHurtPlayer = false;

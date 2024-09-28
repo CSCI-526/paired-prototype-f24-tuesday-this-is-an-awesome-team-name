@@ -179,6 +179,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health: 1
+  destroyOnDeath: 1
 --- !u!114 &4506406082065551184
 MonoBehaviour:
   m_ObjectHideFlags: 0

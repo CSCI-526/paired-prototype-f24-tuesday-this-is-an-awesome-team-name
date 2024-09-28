@@ -103,7 +103,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   patrolSpeed: 1
-  chaseSpeed: 2
+  chaseSpeed: 1
   patrolRange: 5
   obstacleLayer:
     serializedVersion: 2
@@ -188,6 +188,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health: 1
+  destroyOnDeath: 0
 --- !u!114 &237282247406969798
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -290,3 +291,5 @@ MonoBehaviour:
   playerLayer:
     serializedVersion: 2
     m_Bits: 1
+  segments: 50
+  lineColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}

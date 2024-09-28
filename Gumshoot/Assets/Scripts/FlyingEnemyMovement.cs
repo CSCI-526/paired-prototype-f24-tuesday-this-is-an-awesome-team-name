@@ -28,10 +28,13 @@ public class FlyingEnemyMovement : MonoBehaviour
     private bool isChasing = false;
     private Vector2 currentVelocity = Vector2.zero; // Used for SmoothDamp velocity
 
+    private Health health;
+
     void Start()
     {
         patrolStartPos = transform.position;
         player = GameObject.FindGameObjectWithTag("Player").transform;
+        health = GetComponent<Health>();
 
         patrolLeftLimit = patrolStartPos.x - patrolRange / 2f;
         patrolRightLimit = patrolStartPos.x + patrolRange / 2f;
@@ -41,6 +44,8 @@ public class FlyingEnemyMovement : MonoBehaviour
 
     void Update()
     {
+        if (health.health <= 0) { return; }
+
         if (isChasing)
         {
             ChasePlayer();

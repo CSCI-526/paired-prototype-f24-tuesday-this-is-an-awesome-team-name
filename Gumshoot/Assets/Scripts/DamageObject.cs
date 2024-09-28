@@ -26,7 +26,7 @@ public class DamageObject : MonoBehaviour
                 }
             }
         }
-        else if (!collision.collider.CompareTag("Gum"))
+        else if (collision.collider.CompareTag("Enemy"))
         {
             Health hpObj = collision.collider.GetComponent<Health>();
             if (hpObj)
