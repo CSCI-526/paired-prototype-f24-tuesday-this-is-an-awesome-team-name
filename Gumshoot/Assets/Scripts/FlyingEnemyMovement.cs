@@ -29,12 +29,16 @@ public class FlyingEnemyMovement : MonoBehaviour
     private Vector2 currentVelocity = Vector2.zero; // Used for SmoothDamp velocity
 
     private Health health;
+    private SpriteRenderer sprite;
+    private Rigidbody2D rb;
 
     void Start()
     {
         patrolStartPos = transform.position;
         player = GameObject.FindGameObjectWithTag("Player").transform;
         health = GetComponent<Health>();
+        rb = GetComponent<Rigidbody2D>();
+        sprite = GetComponent<SpriteRenderer>();
 
         patrolLeftLimit = patrolStartPos.x - patrolRange / 2f;
         patrolRightLimit = patrolStartPos.x + patrolRange / 2f;
@@ -44,7 +48,11 @@ public class FlyingEnemyMovement : MonoBehaviour
 
     void Update()
     {
-        if (health.health <= 0) { return; }
+        if (health.health <= 0) {
+            rb.velocity = Vector2.zero;
+            sprite.color = Color.yellow;
+            return;
+        }
 
         if (isChasing)
         {

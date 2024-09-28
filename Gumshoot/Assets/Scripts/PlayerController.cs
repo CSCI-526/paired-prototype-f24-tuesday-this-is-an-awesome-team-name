@@ -55,7 +55,7 @@ public class PlayerController : MonoBehaviour
         {
             Vector3 direction = GetMouseForward();
             // If extending towards the latched surface, then launch off the surface
-            if (SurfaceContactInstance && Vector3.Angle(-direction, transform.position - SurfaceContactInstance.transform.position) < 45f)
+            if (SurfaceContactInstance && Vector3.Angle(-direction, transform.position - SurfaceContactInstance.transform.position) < 70f)
             {
                 stuckToSurface = false;
                 if (GetComponent<FlyingEnemyController>() == null)
