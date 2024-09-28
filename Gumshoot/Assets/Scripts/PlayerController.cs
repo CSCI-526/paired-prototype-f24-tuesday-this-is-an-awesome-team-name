@@ -37,7 +37,15 @@ public class PlayerController : MonoBehaviour
             if (dist > 0.7f)
             {
                 transform.localPosition += (retractSpeed * Time.deltaTime * direction);
-                //rb.velocity = direction * dist * 5;
+            }
+        }
+        if (gumInstance == null && PulledObject)
+        {
+            Vector3 direction = (transform.position - PulledObject.transform.position).normalized;
+            float dist = (PulledObject.transform.position - transform.position).magnitude;
+            if (dist > 2f)
+            {
+                PulledObject.transform.localPosition += (retractSpeed * Time.deltaTime * direction);
             }
         }
 
@@ -61,11 +69,12 @@ public class PlayerController : MonoBehaviour
                 if (GetComponent<FlyingEnemyController>() == null)
                 {
                     GetComponent<Rigidbody2D>().gravityScale = 1.6f;
-                    //GetComponent<Rigidbody2D>().AddForce(-direction * jumpForce);
+                    GetComponent<Rigidbody2D>().AddForce(-direction * jumpForce);
                 }
                 if (PulledObject != null)
                 {
                     PulledObject.GetComponent<Rigidbody2D>().gravityScale = 1.6f;
+                    PulledObject.GetComponent<Rigidbody2D>().AddForce(-direction * jumpForce);
                 }
 
                 if (SurfaceContactInstance)

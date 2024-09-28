@@ -88,7 +88,6 @@ public class GumMovement : MonoBehaviour
                 {
                     dist -= Time.deltaTime * owner.retractSpeed;
                     owner.transform.position += (owner.retractSpeed * Time.deltaTime * direction);
-                    //owner.rb.position += (Vector2)(owner.retractSpeed * Time.deltaTime * direction);
                 }
                 // If the player has reached the gum string, stop all gum movement
                 else
@@ -104,12 +103,10 @@ public class GumMovement : MonoBehaviour
             // Detach the pulled object from the gum and attach it to the player instead
             if (state == GumState.PullingObject)
             {
-                //owner.PulledObject.GetComponent<Collider2D>().enabled = true;
                 transform.DetachChildren();
-                //owner.PulledObject.GetComponent<FixedJoint2D>().enabled = true;
-                //owner.PulledObject.GetComponent<FixedJoint2D>().connectedBody = owner.GetComponent<Rigidbody2D>();
                 owner.PulledObject.transform.parent = owner.transform;
-                
+                owner.PulledObject.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
+                owner.PulledObject.GetComponent<Rigidbody2D>().angularVelocity = 0f;
             }
             else if (state == GumState.PullingEnemy)
             {
@@ -125,6 +122,11 @@ public class GumMovement : MonoBehaviour
             else if (state == GumState.PullingPlayer)
             {
                 owner.transform.position = owner.SurfaceContactInstance.transform.position;
+                if (owner.PulledObject)
+                {
+                    owner.PulledObject.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
+                    owner.PulledObject.GetComponent<Rigidbody2D>().angularVelocity = 0f;
+                }
             }
             owner.gumExtended = false;
             Destroy(gameObject);
@@ -197,7 +199,6 @@ public class GumMovement : MonoBehaviour
                 transform.rotation = Quaternion.LookRotation(Vector3.forward, collision.GetContact(0).normal);
 
                 // Stop player movement
-                //owner.transform.DetachChildren();
                 transform.parent = null;
                 owner.GetComponent<Rigidbody2D>().gravityScale = 0f;
                 if (owner.PulledObject != null)
@@ -218,6 +219,12 @@ public class GumMovement : MonoBehaviour
                     state = GumState.Retracting;
                     return;
                 }
+                Health enemyHealth = collision.gameObject.GetComponent<Health>();
+                if (collision.gameObject.CompareTag("Enemy") && enemyHealth && enemyHealth.health > 0)
+                {
+                    state = GumState.Retracting;
+                    return;
+                }
 
                 //collision.gameObject.GetComponent<Collider2D>().enabled = false;
                 GetComponent<SpriteRenderer>().enabled = false;
@@ -227,14 +234,14 @@ public class GumMovement : MonoBehaviour
                 }
                 owner.PullContactInstance = Instantiate(owner.contactPrefab, transform.position, Quaternion.LookRotation(Vector3.forward, collision.GetContact(0).normal));
                 owner.PullContactInstance.transform.parent = collision.transform;
-                Health enemyHealth = collision.gameObject.GetComponent<Health>();
+                
 
                 // Pull the object toward the player
-                if (collision.gameObject.CompareTag("Pullable") || collision.gameObject.CompareTag("Block"))
+                if (!collision.gameObject.CompareTag("Enemy"))
                 {
                     state = GumState.PullingObject;
                 }
-                else if (enemyHealth && enemyHealth.health <= 0)
+                else
                 {
                     state = GumState.PullingEnemy;
                     collision.gameObject.GetComponent<DamageObject>().canHurtPlayer = false;
