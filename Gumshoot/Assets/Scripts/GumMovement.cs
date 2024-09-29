@@ -36,6 +36,7 @@ public class GumMovement : MonoBehaviour
     {
         owner = newOwner;
         this.direction = direction;
+        transform.localPosition = transform.localPosition + direction;
         transform.rotation = Quaternion.LookRotation(Vector3.forward, -direction);
         StringGroupInstance = Instantiate(StringGroupPrefab, transform);
     }
