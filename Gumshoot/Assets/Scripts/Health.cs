@@ -12,6 +12,10 @@ public class Health : MonoBehaviour
         health -= damage;
         if (health <= 0 && destroyOnDeath)
         {
+            if (CompareTag("Player"))
+            {
+                LevelManager.Instance.StartCoroutine(LevelManager.Instance.Die());
+            }
             Destroy(gameObject);
         }
     }

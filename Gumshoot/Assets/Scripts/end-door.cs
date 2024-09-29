@@ -4,12 +4,12 @@ using UnityEngine;
 
 public class EndDoor : MonoBehaviour
 {
-    private bool isOpening = false;
-    public GameObject door; 
-
-    public void OpentheDoor()
+    private void OnCollisionEnter2D(Collision2D collision)
     {
-        isOpening = true;
-        gameObject.SetActive(false);
+        if (collision.collider.CompareTag("Player"))
+        {
+            UIManager.Instance.winText.SetActive(true);
+            Destroy(collision.gameObject);
+        }
     }
 }

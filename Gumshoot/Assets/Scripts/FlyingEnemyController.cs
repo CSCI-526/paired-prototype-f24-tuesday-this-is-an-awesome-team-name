@@ -10,7 +10,7 @@ public class FlyingEnemyController : MonoBehaviour
 
     public GameObject playerPrefab;
     private bool isCooldown = false;
-    private float cooldownDuration = 15f;
+    [SerializeField] private float cooldownDuration = 12f;
     public Text countdownText;
 
     

@@ -16,4 +16,11 @@ public class LevelManager : MonoBehaviour
     {
         SceneManager.LoadScene(0);
     }
+
+    public IEnumerator Die()
+    {
+        UIManager.Instance.loseText.SetActive(true);
+        yield return new WaitForSeconds(3f);
+        Restart();
+    }
 }
